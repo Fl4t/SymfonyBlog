@@ -1,0 +1,26 @@
+{# src/Sdz/BlogBundle/Resources/views/ajouter.html.twig #}
+
+{% extends "SdzBlogBundle::layout.html.twig" %}
+
+{% block title %}
+	Ajouter un article - {{ parent() }}
+{% endblock %}
+
+{% block sdzblog_body %}
+
+	<h2>Ajouter un article</h2>
+
+	{% include "SdzBlogBundle:Blog:formulaire.html.twig" %}
+
+	<p>
+    Ajout d'un article.
+	</p>
+
+	<p>
+		<a href="{{ path('sdzblog_index') }}" class="btn">
+			<i class="icon-chevron-left"></i>
+			Retour au blog
+		</a>
+	</p>
+
+{% endblock %}
