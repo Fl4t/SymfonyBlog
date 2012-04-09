@@ -2,11 +2,6 @@ SdzBlogBundle_blog:
     resource: "@SdzBlogBundle/Resources/config/routing.yml"
     prefix:   /blog
 
-SdzBlogBundle_crud:
-    resource: "@SdzBlogBundle/Resources/config/routing/article.yml"
-    prefix:   /crud
-
-
 # Internal routing configuration to handle ESI
 #_internal:
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
