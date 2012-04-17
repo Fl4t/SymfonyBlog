@@ -21,20 +21,20 @@ class BlogController extends Controller {
   public function voirAction($id) {
     $doctrine = $this->getDoctrine();
     $em = $doctrine->getEntityManager();
-    $articles = $em->getRepository('SdzBlogBundle:Article');
-    $article = $articles->find($id);
+    $article = $em->getRepository('SdzBlogBundle:Article')->find($id);
     return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
       'article' => $article
     ));
   }
 
   public function ajouterAction() {
-    $article = new Article;
-    $form = $this->createForm(new ArticleType, $article);
-    $formHandler = new ArticleHandler($form, $this->get('request'), $this->getDoctrine()->getEntityManager());
-    if( $formHandler->process() ) {
+    $request = $this->get('request');
+    $em = $this->getDoctrine()->getEntityManager();
+    $form = $this->createForm(new ArticleType, new Article);
+    $formHandler = new ArticleHandler($form, $request, $em);
+    if($formHandler->process()) {
       $this->get('session')->setFlash('info', 'Article bien enregistré');
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())) );
+      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
     }
     return $this->render('SdzBlogBundle:Blog:ajouter.html.twig', array(
       'form' => $form->createView(),
@@ -42,15 +42,16 @@ class BlogController extends Controller {
   }
 
   public function modifierAction($id) {
+    $request = $this->get('request');
     $em = $this->getDoctrine()->getEntityManager();
-    if( ! $article = $em->getRepository('Sdz\BlogBundle\Entity\Article')->find($id) ) {
+    if(!$article = $em->getRepository('Sdz\BlogBundle\Entity\Article')->find($id)) {
       throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
     }
     $form = $this->createForm(new ArticleType, $article);
-    $formHandler = new ArticleHandler($form, $this->get('request'), $em);
-    if( $formHandler->process() ) {
+    $formHandler = new ArticleHandler($form, $request, $em);
+    if($formHandler->process()) {
       $this->get('session')->setFlash('info', 'Article bien enregistré');
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())) );
+      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
     }
     return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
       'form' => $form->createView(),
