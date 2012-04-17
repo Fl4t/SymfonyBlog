@@ -50,7 +50,7 @@ class BlogController extends Controller {
     $form = $this->createForm(new ArticleType, $article);
     $formHandler = new ArticleHandler($form, $request, $em);
     if($formHandler->process()) {
-      $this->get('session')->setFlash('info', 'Article bien enregistré');
+      $this->get('session')->setFlash('info', 'Article bien modifié');
       return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
     }
     return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
