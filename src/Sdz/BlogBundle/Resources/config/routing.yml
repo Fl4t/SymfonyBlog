@@ -1,10 +1,8 @@
 # src/Sdz/BlogBundle/Resources/config/routing.yml
 #
 sdzblog_index:
-    pattern:   /{page}
-    defaults:  { _controller: SdzBlogBundle:Blog:index, page: 1 }
-    requirements:
-        page:  \d+
+    pattern:   /
+    defaults:  { _controller: SdzBlogBundle:Blog:index }
 
 sdzblog_voir:
     pattern:   /article/{id}

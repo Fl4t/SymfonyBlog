@@ -9,10 +9,7 @@ use Sdz\BlogBundle\Form\ArticleHandler;
 
 class BlogController extends Controller {
 
-  public function indexAction($page) {
-    if( $page < 1 ) {
-      throw $this->createNotFoundException('Page inexistante (page = '.$page.')');
-    }
+  public function indexAction() {
     $doctrine = $this->getDoctrine();
     $em = $doctrine->getEntityManager();
     $articles = $em->getRepository('SdzBlogBundle:Article')->findAll();
