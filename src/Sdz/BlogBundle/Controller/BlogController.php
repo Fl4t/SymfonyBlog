@@ -68,34 +68,4 @@ class BlogController extends Controller {
     return $this->redirect( $this->generateUrl('sdzblog_index'));
   }
 
- /**
-  * @Assert\True()
-  */
-  public function testAction() {
-      $article = new Article;
-      $article->setDate(new \Datetime());  // Champ « date » O.K.
-      $article->setTitre('mazeofijazemfij');           // Champ « titre » incorrect : moins de 10 caractères.
-      $article->setContenu('blabla');    // Champ « contenu » incorrect : on ne le définit pas.
-      $article->setAuteur('Aamfoijmfze');            // Champ « auteur » incorrect : moins de 2 caractères.
-
-      // On récupère le service validator.
-      $validator = $this->get('validator');
-
-      // On déclenche la validation.
-      $liste_erreurs = $validator->validate($article);
-
-      // Si le tableau n'est pas vide, on affiche les erreurs.
-      if(count($liste_erreurs) > 0)
-      {
-          return new Response(print_r($liste_erreurs, true));
-      }
-      else
-      {
-          return new Response("L'article est valide !");
-      }
-  }
-  public function contactAction()
-  {
-    return $this->render('SdzBlogBundle:Blog:contact.html.twig');
-  }
 }

@@ -25,11 +25,3 @@ sdzblog_supprimer:
     defaults:  { _controller: SdzBlogBundle:Blog:supprimer }
     requirements:
         id:  \d+
-
-sdzblog_test:
-    pattern:   /test
-    defaults:  { _controller: SdzBlogBundle:Blog:test }
-
-sdzblog_contact:
-    pattern:   /contact
-    defaults:  { _controller: SdzBlogBundle:Blog:contact }
