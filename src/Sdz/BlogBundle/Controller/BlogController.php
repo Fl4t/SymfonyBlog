@@ -29,12 +29,13 @@ class BlogController extends Controller {
 
   public function ajouterAction() {
     $request = $this->get('request');
+    $article = new Article;
     $em = $this->getDoctrine()->getEntityManager();
-    $form = $this->createForm(new ArticleType, new Article);
+    $form = $this->createForm(new ArticleType, $article);
     $formHandler = new ArticleHandler($form, $request, $em);
     if($formHandler->process()) {
       $this->get('session')->setFlash('info', 'Article bien enregistré');
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
+      return $this->redirect($this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
     }
     return $this->render('SdzBlogBundle:Blog:ajouter.html.twig', array(
       'form' => $form->createView(),
