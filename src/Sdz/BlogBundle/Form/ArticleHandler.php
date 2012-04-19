@@ -23,18 +23,13 @@ class ArticleHandler
 
     public function process()
     {
-        if( $this->request->getMethod() == 'POST' )
-        {
+        if($this->request->getMethod() == 'POST') {
             $this->form->bindRequest($this->request);
-
-            if( $this->form->isValid() )
-            {
+            if($this->form->isValid()) {
                 $this->onSuccess($this->form->getData());
-
                 return true;
             }
         }
-
         return false;
     }
 
@@ -42,8 +37,7 @@ class ArticleHandler
     {
         $this->em->persist($article);
         // On persiste tous les tags de l'article.
-        foreach($article->getTags() as $tag)
-        {
+        foreach($article->getTags() as $tag) {
             $this->em->persist($tag);
         }
         $this->em->flush();

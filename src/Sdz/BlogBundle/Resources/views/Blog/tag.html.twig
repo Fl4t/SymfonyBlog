@@ -8,12 +8,8 @@
 
 {% block sdzblog_body %}
 
-	<h2>Liste des tags</h2>
+	<h2>Ajouter un tag</h2>
 
-	<ul>
-		{% for tag in tags %}
-    {{ tag.nom }}<br />
-		{% endfor %}
-	</ul>
+	{% include "SdzBlogBundle:Blog:formulaire.html.twig" %}
 
 {% endblock %}

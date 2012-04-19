@@ -4,14 +4,14 @@ namespace Sdz\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Httpfoundation\Response;
 use Sdz\BlogBundle\Entity\Article;
+use Sdz\BlogBundle\Entity\Tag;
 use Sdz\BlogBundle\Form\ArticleType;
 use Sdz\BlogBundle\Form\ArticleHandler;
 
 class BlogController extends Controller {
 
   public function indexAction() {
-    $doctrine = $this->getDoctrine();
-    $em = $doctrine->getEntityManager();
+    $em = $this->getDoctrine()->getEntityManager();
     $articles = $em->getRepository('SdzBlogBundle:Article')->findAll();
     return $this->render('SdzBlogBundle:Blog:index.html.twig', array(
       'articles' => $articles
@@ -19,8 +19,7 @@ class BlogController extends Controller {
   }
 
   public function voirAction($id) {
-    $doctrine = $this->getDoctrine();
-    $em = $doctrine->getEntityManager();
+    $em = $this->getDoctrine();
     $article = $em->getRepository('SdzBlogBundle:Article')->find($id);
     return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
       'article' => $article
@@ -28,6 +27,7 @@ class BlogController extends Controller {
   }
 
   public function ajouterAction() {
+    $em = $this->getDoctrine()->getEntityManager();
     $request = $this->get('request');
     $article = new Article;
     $em = $this->getDoctrine()->getEntityManager();
@@ -52,7 +52,7 @@ class BlogController extends Controller {
     $formHandler = new ArticleHandler($form, $request, $em);
     if($formHandler->process()) {
       $this->get('session')->setFlash('info', 'Article bien modifié');
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
+      return $this->redirect($this->generateUrl('sdzblog_voir', array('id' => $article->getId())));
     }
     return $this->render('SdzBlogBundle:Blog:modifier.html.twig', array(
       'form' => $form->createView(),
@@ -61,13 +61,32 @@ class BlogController extends Controller {
   }
 
   public function supprimerAction($id) {
-    $doctrine = $this->getDoctrine();
-    $em = $doctrine->getEntityManager();
+    $em = $this->getDoctrine()->getEntityManager();
     $article = $em->getRepository('SdzBlogBundle:Article')->find($id);
     $em->remove($article);
     $em->flush();
     $this->get('session')->setFlash('info', 'Article bien supprimé');
-    return $this->redirect( $this->generateUrl('sdzblog_index'));
+    return $this->redirect($this->generateUrl('sdzblog_index'));
+  }
+
+  public function ajouterTagAction() {
+    $tag = new Tag;
+    $formBuilder = $this->createFormBuilder($tag);
+    $formBuilder->add('nom');
+    $form = $formBuilder->getForm();
+    if ($this->getRequest()->getMethod() == 'POST') {
+      $form->bindRequest($this->getRequest());
+      if($form->isValid()) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($tag);
+        $em->flush();
+        $this->get('session')->setFlash('info', 'Tag bien ajouté');
+        return $this->redirect($this->generateUrl('sdzblog_index'));
+      }
+    }
+    return $this->render('SdzBlogBundle:Blog:tag.html.twig', array(
+      'form' => $form->createView(),
+    ));
   }
 
 }

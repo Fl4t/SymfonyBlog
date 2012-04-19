@@ -1,47 +1,10 @@
 {# src/Sdz/BlogBundle/Resources/views/Blog/formulaire.html.twig #}
-<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    // Permet de supprimer les labels déjà présents dans la page dans le cas d'un formulaire de modification
-     $('label.required').replaceWith('');
-    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    var $container = $('#sdz_blogbundle_articletype_tags');
-
-    // On définit une fonction qui va ajouter un champ.
-    function add_tag() {
-        // On définit le numéro du champ (en comptant le nombre de champs déjà ajoutés).
-        index = $container.children().length;
-
-        // On ajoute à la fin de la balise <div> le contenu de l'attribut « data-prototype »,
-        // après avoir remplacé la variable $$name$$ qu'il contient par le numéro du champ.
-        $container.append(
-            $($container.attr('data-prototype').replace(/\$\$name\$\$/g, index))
-        );
-
-        // Permet de supprimer les labels ajoutés dans la page
-        $('label.required').replaceWith('');
-    }
-
-    // On ajoute un premier champ directement s'il n'en existe pas déjà un.
-    if($container.children().length == 0) {
-        add_tag();
-    }
-
-    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-    $('#add_tag').click(function() {
-        add_tag();
-    });
-});
-</script>
 
 <h3>Formulaire d'article</h3>
 
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-    <!-- Ajout d'un lien pour ajouter un champ tag supplémentaire. -->
-    <a href="#" id="add_tag">Ajouter un tag</a><br />
     <input type="submit" />
   </form>
 </div>

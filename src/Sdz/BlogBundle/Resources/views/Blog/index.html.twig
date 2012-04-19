@@ -13,8 +13,13 @@
 	<ul>
 		{% for article in articles %}
 			<li>
-				<a href="{{ path('sdzblog_voir', {'id': article.id}) }}">{{ article.titre }}</a>
-				le {{ article.date|date('d/m/Y') }}
+        <p>
+          <a href="{{ path('sdzblog_voir', {'id': article.id}) }}">{{ article.titre }}</a>
+          le {{ article.date|date('d/m/Y') }}
+          {% for tag in article.tags %}
+          <span class="label">{{ tag.nom }}</span>
+          {% endfor %}
+        </p>
 			</li>
 		{% else %}
 			<li>Pas (encore !) d'articles</li>
