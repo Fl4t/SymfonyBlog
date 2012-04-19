@@ -15,10 +15,13 @@ class ArticleType extends AbstractType
             ->add('titre')
             ->add('contenu')
             ->add('auteur')
-            ->add('tags', 'collection', array('type'      => new TagType,
-                                              'prototype' => true,
-                                              'allow_add' => true))
+            ->add('tags', 'entity', array(
+                                          'class' => 'SdzBlogBundle:Tag',
+                                          'property' => 'nom',
+                                          'expanded' => true,
+                                          'multiple' => true))
         ;
+
     }
 
     public function getName()
