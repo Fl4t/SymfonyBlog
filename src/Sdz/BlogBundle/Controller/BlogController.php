@@ -28,7 +28,6 @@ class BlogController extends Controller {
   }
 
   public function ajouterAction() {
-    $em = $this->getDoctrine()->getEntityManager();
     $request = $this->get('request');
     $article = new Article;
     $em = $this->getDoctrine()->getEntityManager();
