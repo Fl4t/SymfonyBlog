@@ -14,7 +14,8 @@ class BlogController extends Controller {
     $em = $this->getDoctrine()->getEntityManager();
     $articles = $em->getRepository('SdzBlogBundle:Article')->findAll();
     return $this->render('SdzBlogBundle:Blog:index.html.twig', array(
-      'articles' => $articles
+      'articles' => $articles,
+      'index' => true,
     ));
   }
 
@@ -39,6 +40,7 @@ class BlogController extends Controller {
     }
     return $this->render('SdzBlogBundle:Blog:ajouter.html.twig', array(
       'form' => $form->createView(),
+      'ajouter' => true,
     ));
   }
 
@@ -86,6 +88,7 @@ class BlogController extends Controller {
     }
     return $this->render('SdzBlogBundle:Blog:tag.html.twig', array(
       'form' => $form->createView(),
+      'ajouterTag' => true,
     ));
   }
 
