@@ -3,8 +3,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    {% block javascripts %}
-    {% endblock %}
 		<title>{% block title %}SymfonyBlog{% endblock %}</title>
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
@@ -47,5 +45,7 @@
 				<p>The sky's the limit &copy; 2012 and beyond.</p>
 			</footer>
 		</div>
+    {% block javascripts %}
+    {% endblock %}
 	</body>
 </html>
