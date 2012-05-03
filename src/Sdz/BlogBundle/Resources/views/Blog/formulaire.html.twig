@@ -1,6 +1,19 @@
+<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <input type="submit" />
   </form>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+      $('#sdz_blogbundle_articletype_date').datepicker({
+        format : 'dd-mm-yyyy'
+        }).on('changeDate', function(){
+          $('#sdz_blogbundle_articletype_date').datepicker('hide');
+      });
+  });
+</script>
