@@ -36,10 +36,6 @@ class ArticleHandler
     public function onSuccess(Article $article)
     {
         $this->em->persist($article);
-        // On persiste tous les tags de l'article.
-        foreach($article->getTags() as $tag) {
-            $this->em->persist($tag);
-        }
         $this->em->flush();
     }
 }
