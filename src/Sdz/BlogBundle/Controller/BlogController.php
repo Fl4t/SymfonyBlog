@@ -12,7 +12,8 @@ class BlogController extends Controller {
 
   public function indexAction() {
     $em = $this->getDoctrine()->getEntityManager();
-    $articles = $em->getRepository('SdzBlogBundle:Article')->findAll();
+    $query = $em->createQuery('SELECT a, t FROM SdzBlogBundle:Article a JOIN a.tags t');
+    $articles = $query->getResult();
     return $this->render('SdzBlogBundle:Blog:index.html.twig', array(
       'articles' => $articles,
       'index' => true,
