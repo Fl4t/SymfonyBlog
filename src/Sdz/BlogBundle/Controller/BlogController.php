@@ -20,7 +20,7 @@ class BlogController extends Controller {
   }
 
   public function voirAction($id) {
-    $em = $this->getDoctrine();
+    $em = $this->getDoctrine()->getEntityManager();
     $article = $em->getRepository('SdzBlogBundle:Article')->find($id);
     return $this->render('SdzBlogBundle:Blog:voir.html.twig', array(
       'article' => $article
