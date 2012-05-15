@@ -4,7 +4,8 @@
 <div class="well">
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-    <input type="submit" />
+    <br />
+    <input type="submit" class="btn"/>
   </form>
 </div>
 
@@ -15,5 +16,6 @@
         }).on('changeDate', function(){
           $('#sdz_blogbundle_articletype_date').datepicker('hide');
       });
+      $('#sdz_blogbundle_articletype_tags').addClass('checkbox inline');
   });
 </script>
