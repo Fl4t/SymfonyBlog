@@ -1,7 +1,9 @@
 /web/bundles/
 /app/bootstrap*
 /app/cache/*
+!/app/cache/antibrokegitstash
 /app/logs/*
+!/app/logs/antibrokegitstash
 /vendor/
 /app/config/parameters.ini
 /nbproject/
